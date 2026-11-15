@@ -33,7 +33,7 @@
     <p class="lead">Every site I've built and published. Tap one to open it.</p>
   </header>
 
-  <div class="grid" id="grid" aria-live="polite"></div>
+  <div class="grid projects" id="grid" aria-live="polite"></div>
   <p class="status" id="status"></p>
 </main>
 
@@ -47,23 +47,16 @@
   const USER = 'Menfis23';
   // Repos to leave off the grid (the portfolio itself, plus anything you want hidden).
   const HIDE = [USER.toLowerCase() + '.github.io'];
-  // Optional nicer names / icons per repo. Anything not listed gets an automatic name and icon.
+  // Per-site details. "shot" = a real screenshot of the site (in shots/), "logo" = the site's own logo (in logos/).
+  // A new site you publish still shows up automatically; add a line here to give it a screenshot or logo.
   const OVERRIDES = {
-    'road-to-25':            { name: 'Road to 25', emoji: '🏁' },
-    'stem-lesson-gallery':   { name: 'STEM Lesson Gallery', emoji: '🔬' },
-    'aryse-english-gallery': { name: 'ARYSE English Gallery', emoji: '📚' },
-    'hilldiscrit-map-projet':{ name: 'Hill District Map', emoji: '🗺️' },
-    'valore-arc-site':       { name: 'Valore ARC', emoji: '🤝' }
+    'road-to-25':             { name: 'Road to 25',            shot: 'shots/road-to-25.jpg' },
+    'stem-lesson-gallery':    { name: 'STEM Lesson Gallery',   shot: 'shots/stem-lesson-gallery.jpg',    logo: 'logos/stem-lesson-gallery.jpg' },
+    'aryse-english-gallery':  { name: 'English Activity Gallery', shot: 'shots/aryse-english-gallery.jpg' },
+    'hilldiscrit-map-projet': { name: 'Hill District Community Plan', shot: 'shots/hilldiscrit-map-projet.jpg' },
+    'valore-arc-site':        { name: 'Valore Group',          shot: 'shots/valore-arc-site.jpg',        logo: 'logos/valore-arc-site.jpg', url: 'https://valore-arc.com/' }
   };
-  const TINTS = [
-    'linear-gradient(135deg,#f6c453,#ff8f6b)',
-    'linear-gradient(135deg,#4fd1c5,#7ee8dd)',
-    'linear-gradient(135deg,#a78bfa,#f0abfc)',
-    'linear-gradient(135deg,#60a5fa,#a5f3fc)',
-    'linear-gradient(135deg,#fb7185,#fdba74)',
-    'linear-gradient(135deg,#86efac,#fde68a)'
-  ];
-  const GLOWS = ['rgba(246,196,83,.25)','rgba(79,209,197,.25)','rgba(167,139,250,.25)','rgba(96,165,250,.25)','rgba(251,113,133,.25)','rgba(134,239,172,.25)'];
+  const TINTS = ['#2b3a73','#1f5c58','#5a3d73','#6b3b2e','#2f4f2f','#3b4b63'];
 
   const grid = document.getElementById('grid');
   const status = document.getElementById('status');
@@ -79,35 +72,40 @@
   function tile(repo){
     const o = OVERRIDES[repo.name.toLowerCase()] || {};
     const name = o.name || prettify(repo.name);
-    const h = hash(repo.name);
-    const a = el('a','tile');
-    a.href = siteUrl(repo);
+    const url = o.url || siteUrl(repo);
+    const a = el('a','project');
+    a.href = url;
     a.target = '_blank'; a.rel = 'noopener';
-    a.style.setProperty('--glow', GLOWS[h % GLOWS.length]);
 
-    const icon = el('div','tile-icon');
-    icon.style.setProperty('--tint', TINTS[h % TINTS.length]);
-    if(o.emoji){ icon.textContent = o.emoji; icon.style.fontSize = '30px'; }
-    else {
-      icon.textContent = initials(name);
-      // Use the site's own favicon if it has one; keep the initials if not.
+    const shot = el('div','shot');
+    if(o.shot){
       const img = new Image();
-      img.alt = '';
-      img.onload = () => { if(img.naturalWidth > 1){ icon.textContent=''; icon.appendChild(img); } };
-      img.src = siteUrl(repo) + 'favicon.ico';
+      img.src = o.shot; img.alt = `Screenshot of ${name}`; img.loading = 'lazy';
+      shot.appendChild(img);
+    } else {
+      shot.style.background = TINTS[hash(repo.name) % TINTS.length];
     }
-    a.appendChild(icon);
+    a.appendChild(shot);
+
+    const body = el('div','project-body');
+    const logo = el('div','logo');
+    if(o.logo){ const li = new Image(); li.src = o.logo; li.alt = `${name} logo`; logo.appendChild(li); }
+    else { logo.textContent = initials(name); logo.style.background = TINTS[hash(repo.name) % TINTS.length]; }
+    body.appendChild(logo);
 
     const text = el('div');
-    text.appendChild(el('h3',null,name));
+    const h3 = el('h3',null,name);
+    h3.appendChild(el('span','arrow-sm','↗'));
+    text.appendChild(h3);
     if(repo.description) text.appendChild(el('p',null,repo.description));
-    a.appendChild(text);
-    a.appendChild(el('span','arrow','↗'));
+    text.appendChild(el('span','domain', url.replace(/^https?:\/\//,'').replace(/\/$/,'')));
+    body.appendChild(text);
+    a.appendChild(body);
     return a;
   }
 
   // Loading placeholders
-  for(let i=0;i<6;i++) grid.appendChild(el('div','tile skeleton'));
+  for(let i=0;i<3;i++) grid.appendChild(el('div','project skeleton'));
 
   fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed`)
     .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
