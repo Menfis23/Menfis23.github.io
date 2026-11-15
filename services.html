@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services & Contact · Rechab</title>
+<meta name="description" content="Websites and AI tools for businesses and nonprofits, built by Rechab through Halvora. Get in touch.">
+<meta name="theme-color" content="#0b1430">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23f6c453'/><text x='50' y='70' font-size='62' font-family='Arial' font-weight='700' text-anchor='middle' fill='%230b1430'>R</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Rechab<span>.</span></a>
+    <div class="nav-links">
+      <a href="story.html">Story</a>
+      <a href="work.html">Work</a>
+      <a href="services.html" aria-current="page">Services</a>
+      <a class="pill" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-head">
+    <span class="eyebrow">Halvora</span>
+    <h1>Websites and AI tools that work for you.</h1>
+    <p class="lead">Through Halvora, I design and build websites and AI tools for businesses and nonprofits, then help you launch them.</p>
+  </header>
+
+  <section class="section">
+    <div class="services">
+      <div class="service">
+        <div class="icon" style="--tint:linear-gradient(135deg,#f6c453,#ff8f6b)">💻</div>
+        <h3>Websites</h3>
+        <p>A clean, fast site that tells your story and works on every phone.</p>
+        <ul>
+          <li>Design and build</li>
+          <li>Mobile-friendly</li>
+          <li>Launch and hosting setup</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="icon" style="--tint:linear-gradient(135deg,#4fd1c5,#7ee8dd)">🤖</div>
+        <h3>AI tools</h3>
+        <p>Practical AI that saves your team time, built around how you already work.</p>
+        <ul>
+          <li>Assistants and chatbots</li>
+          <li>Interactive tools and generators</li>
+          <li>Simple automations</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="icon" style="--tint:linear-gradient(135deg,#a78bfa,#f0abfc)">🤝</div>
+        <h3>For nonprofits</h3>
+        <p>Tools for programs and the people they serve, like the lesson and activity galleries I've built for youth programs.</p>
+        <ul>
+          <li>Program and lesson libraries</li>
+          <li>Community maps and resources</li>
+          <li>Multilingual: English and French</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How it works</h2>
+    <p class="sub">Simple, and you're in the loop the whole way.</p>
+    <div class="steps">
+      <div class="step"><h3>Talk</h3><p>Tell me what you need and who it's for.</p></div>
+      <div class="step"><h3>Plan</h3><p>I send a short plan and a quote.</p></div>
+      <div class="step"><h3>Build</h3><p>You see progress and give feedback as I go.</p></div>
+      <div class="step"><h3>Launch</h3><p>We go live, and I show you how to keep it updated.</p></div>
+    </div>
+    <a class="more-link" href="work.html">See sites I've built →</a>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Get in touch</h2>
+    <p class="sub">Have a project, an opportunity, or just want to connect? Send me a message.</p>
+    <div class="contact">
+      <div class="contact-card">
+        <h3>Reach me directly</h3>
+        <p>Email me or find me online.</p>
+        <div class="links">
+          <a id="emailLink" href="#">
+            <span class="ic">✉️</span>
+            <span>Email<small id="emailText">Loading…</small></span>
+          </a>
+          <a href="https://github.com/Menfis23" target="_blank" rel="noopener">
+            <span class="ic">🐙</span>
+            <span>GitHub<small>github.com/Menfis23</small></span>
+          </a>
+          <!-- LinkedIn: replace YOUR-HANDLE below, then remove these comment markers.
+          <a href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">
+            <span class="ic">💼</span>
+            <span>LinkedIn<small>linkedin.com/in/YOUR-HANDLE</small></span>
+          </a>
+          -->
+        </div>
+      </div>
+
+      <form class="contact-card" id="contactForm">
+        <h3>Send a message</h3>
+        <div class="two">
+          <label class="field"><span>Your name</span><input name="name" required autocomplete="name"></label>
+          <label class="field"><span>Your email</span><input name="email" type="email" required autocomplete="email"></label>
+        </div>
+        <label class="field"><span>What's this about?</span>
+          <select name="topic">
+            <option>A website or AI tool project</option>
+            <option>Valore Group</option>
+            <option>An opportunity or collaboration</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label class="field"><span>Message</span><textarea name="message" required></textarea></label>
+        <button class="btn btn-primary" type="submit">Send message →</button>
+        <p class="form-note">This opens your email app with your message ready to send.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="yr"></span> Rechab</span>
+  <span><a href="https://github.com/Menfis23">GitHub</a></span>
+</footer>
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  // Email is put together here so simple spam bots scanning the page don't pick it up.
+  const addr = ['audhasserechab','gmail.com'].join('@');
+  const link = document.getElementById('emailLink');
+  link.href = 'mailto:' + addr;
+  document.getElementById('emailText').textContent = addr;
+
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target;
+    const subject = `${f.topic.value} (from ${f.name.value})`;
+    const body = `${f.message.value}\n\n${f.name.value}\n${f.email.value}`;
+    window.location.href = `mailto:${addr}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+})();
+</script>
+</body>
+</html>
