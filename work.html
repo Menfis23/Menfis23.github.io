@@ -56,6 +56,12 @@
     'hilldiscrit-map-projet': { name: 'Hill District Community Plan', shot: 'shots/hilldiscrit-map-projet.jpg' },
     'valore-arc-site':        { name: 'Valore Group',          shot: 'shots/valore-arc-site.jpg',        logo: 'logos/valore-arc-site.jpg', url: 'https://valore-arc.com/' }
   };
+  // Sites hosted somewhere other than GitHub Pages. "after" = which card it sits next to.
+  const EXTRAS = [
+    { name: 'valore-library', title: 'Valore Library', url: 'https://valore-library-museum.netlify.app/',
+      description: 'A cultural library and storytelling platform for the countries refugees and immigrants call home: beauty and history, not stereotypes.',
+      shot: 'shots/valore-library.jpg', logo: 'logos/valore-library.jpg', after: 'valore-arc-site' }
+  ];
   const TINTS = ['#2b3a73','#1f5c58','#5a3d73','#6b3b2e','#2f4f2f','#3b4b63'];
 
   const grid = document.getElementById('grid');
@@ -113,6 +119,11 @@
       const sites = repos
         .filter(r => r.has_pages && !r.fork && !r.archived && !HIDE.includes(r.name.toLowerCase()))
         .sort((a,b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+      EXTRAS.forEach(x => {
+        OVERRIDES[x.name] = { name: x.title, url: x.url, shot: x.shot, logo: x.logo };
+        const i = sites.findIndex(r => r.name.toLowerCase() === x.after);
+        sites.splice(i >= 0 ? i + 1 : sites.length, 0, { name: x.name, description: x.description });
+      });
       grid.innerHTML = '';
       if(!sites.length){ status.textContent = 'No live sites yet. Check back soon.'; return; }
       sites.forEach(r => grid.appendChild(tile(r)));
