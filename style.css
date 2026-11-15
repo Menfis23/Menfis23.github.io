@@ -178,6 +178,7 @@ footer a{color:var(--muted)}
   border:1px solid rgba(246,196,83,.25);
   font-size:21px;line-height:1.45;font-weight:600;letter-spacing:-.01em;
 }
+.quote cite{display:block;margin-top:10px;font-size:14px;font-weight:600;font-style:normal;color:var(--gold);letter-spacing:0}
 .langs{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .lang{padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:14.5px}
 
